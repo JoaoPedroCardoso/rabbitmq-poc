@@ -15,18 +15,16 @@ public class RabbitmqProducer  implements CommandLineRunner {
     @Value("${spring.rabbitmq.topic.exchange.name}")
     public String topicExchangeName;
 
-    private RabbitTemplate rabbitTemplate;
-    private RabbitmqReceiver receiver;
-
     @Value("${spring.rabbitmq.template.routing-key.person}")
     private String routingKey;
 
+    private RabbitTemplate rabbitTemplate;
+    private RabbitmqReceiver receiver;
     private String message = "";
 
     public RabbitmqProducer(RabbitmqReceiver receiver, RabbitTemplate rabbitTemplate) {
         this.receiver = receiver;
         this.rabbitTemplate = rabbitTemplate;
-
     }
 
     @Override
