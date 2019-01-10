@@ -20,7 +20,7 @@ public class RabbitmqProducer  implements CommandLineRunner {
 
     private RabbitTemplate rabbitTemplate;
     private RabbitmqReceiver receiver;
-    private String message = "";
+    private String message = "Rabbitmq Initialized";
 
     public RabbitmqProducer(RabbitmqReceiver receiver, RabbitTemplate rabbitTemplate) {
         this.receiver = receiver;
