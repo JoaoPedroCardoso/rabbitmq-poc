@@ -17,6 +17,9 @@ public class PersonServiceTests extends RabbitmqApplicationTests {
     @Autowired
     private PersonService personService;
 
+    @Autowired
+    private RabbitmqProducer rabbitmqProducer;
+
     @Test
     @DisplayName("should find a not empty list with all person in db")
     public void findAllPersonTest() {
@@ -47,7 +50,7 @@ public class PersonServiceTests extends RabbitmqApplicationTests {
 
         assertDoesNotThrow(() -> personService.save(newPerson));
 
-        //assertDoesNotThrow(() ->  kafkaService.run());
+        assertDoesNotThrow(() ->  rabbitmqProducer.run());
 
         List<Person> personList = personService.findAll();
         assertEquals("NewPerson", personList.get(personList.size() - 1).getName());
