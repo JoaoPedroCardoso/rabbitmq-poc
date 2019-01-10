@@ -3,7 +3,6 @@ package com.poc.rabbitmq.service;
 import com.poc.rabbitmq.domain.Person;
 import com.poc.rabbitmq.infrastruct.exception.ObjectNotFoundException;
 import com.poc.rabbitmq.repository.PersonRepository;
-import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +14,9 @@ public class PersonService {
     @Autowired
     private PersonRepository personRepository;
 
+    @Autowired
+    private RabbitmqProducer rabbitmqProducer;
+
     public List<Person> findAll() {
         return personRepository.findAll();
     }
@@ -24,8 +26,11 @@ public class PersonService {
                 new ObjectNotFoundException("Person with ID " + id + " was not found."));
     }
 
-    public Person save(Person person) {
-        return personRepository.save(person);
+    public Person save(Person person) throws Exception {
+        Person newPerson = personRepository.save(person);
+        rabbitmqProducer.setMessage(newPerson.toString());
+        rabbitmqProducer.run();
+        return newPerson;
     }
 
 }

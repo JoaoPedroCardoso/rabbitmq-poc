@@ -29,7 +29,7 @@ public class PersonController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> save(@RequestBody @Valid Person person) throws InterruptedException {
+    public ResponseEntity<Void> save(@RequestBody @Valid Person person) throws Exception {
         Person newPerson = personService.save(person);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newPerson.getId()).toUri();
 
