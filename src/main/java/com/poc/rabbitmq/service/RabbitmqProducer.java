@@ -38,4 +38,8 @@ public class RabbitmqProducer  implements CommandLineRunner {
         this.message = message;
     }
 
+    public String getMessage() {
+        return this.message;
+    }
+
 }
